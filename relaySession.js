@@ -13,10 +13,11 @@ class RelaySession extends EventEmitter {
     }
 
     run() {
-        let argv = ['-rtsp_transport', 'tcp', '-i', this.conf.inPath, '-vcodec', 'copy', '-an', '-f', 'flv', this.conf.ouPath];
+        //#exec_pull ffmpeg -rtsp_transport tcp -r 15 -probesize 32 -analyzeduration 0 -i rtsp://admin:3edcvfr4@10.10.10.11:554/Streaming/Channels/101 -threads 24 -c:v libx264 -bf 15 -g 25 -b:v 300k -profile:v baseline -preset:v faster -tune zerolatency -an -f flv rtmp://localhost:1935/hls/$name;
+        let argv = ['-rtsp_transport', 'tcp', '-i', this.conf.inp, '-vcodec', 'copy', '-an', '-f', 'flv', this.conf.out];
 
         this.state = STATES.running;
-        this.ffmpeg_exec = spawn(env.ffmpeg, argv);
+        this.ffmpeg_exec = spawn(global.env.ffmpeg, argv);
         this.ffmpeg_exec.stderr.on('data', (data) => {
             //console.log(`输出：${data}`);
         });

@@ -1,8 +1,10 @@
+const env = process.argv.length > 2 ? process.argv[2] : 'prod';
+global.env = require('./env')[env];
+
 const WS = require('ws');
-const env = require('./env');
 const RelayServer = require('./relayServer');
 
-let ws = new WS.Server({port: env.WEBSOCKET_PORT});
+let ws = new WS.Server({port: global.env.WEBSOCKET_PORT});
 let rls = new RelayServer();
 
 
@@ -24,4 +26,4 @@ ws.on('connection', function (socket) {
 });
 
 
-console.log('Awaiting WebSocket connections on ws://127.0.0.1:' + env.WEBSOCKET_PORT+'/');
+console.log('Awaiting WebSocket connections on ws://127.0.0.1:' + global.env.WEBSOCKET_PORT);

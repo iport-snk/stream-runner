@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script>
-        var ws = new WebSocket('ws://localhost:8082');
+        var ws = new WebSocket('ws://z.iport.net.ua:8082');
 
         ws.onopen = function (event) {
             //ws.send("Here's some text that the server is urgently awaiting!");
@@ -14,9 +14,9 @@
             let data = {
                 cmd: 'startStream',
                 args: {
-                    id: 54,
-                    inPath: 'rtsp://admin:3edcvfr4@10.10.10.66:554/cam/realmonitor?channel=1&subtype=0',
-                    ouPath: 'rtmp://localhost:1935/hls/5454'
+                    id: 5454,
+                    inp: 'rtsp://admin:3edcvfr4@10.10.10.66:554/cam/realmonitor?channel=1&subtype=0',
+                    out: 'rtmp://z.iport.net.ua:1935/hls/5454'
                 }
             };
 
@@ -27,7 +27,7 @@
             let data = {
                 cmd: 'stopStream',
                 args: {
-                    id: 54
+                    id: 5454
                 }
             };
 

@@ -4,6 +4,7 @@ class RelayServer {
 
     constructor () {
         this.streams = new Map();
+        this.runStatics();
         //this.runner = setInterval(this.keepRunning.bind(this), 1000);
     }
 
@@ -13,6 +14,12 @@ class RelayServer {
                 this.startStream(stream.conf)
             }
         })
+    }
+
+    runStatics () {
+        if (Array.isArray(global.env.statics)) {
+            global.env.statics.forEach(this.startStream.bind(this));
+        }
     }
 
     startStream (conf) {
@@ -29,6 +36,7 @@ class RelayServer {
 
     stopStream (id) {
         this.streams.get(id).stop();
+        // deny stopping if stream is static
     }
 }
 
