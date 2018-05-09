@@ -8,12 +8,14 @@ class RelayServer {
         //this.runner = setInterval(this.keepRunning.bind(this), 1000);
     }
 
-    keepRunning () {
-        this.streams.forEach(stream => {
-            if (stream.session === null) {
-                this.startStream(stream.conf)
+    watcher (session) {
+        setTimeout(session.run, 5000);
+        /*this.streams.forEach(stream => {
+            if (!stream.isAlive()) {
+                stream.run();
             }
-        })
+        })*/
+
     }
 
     runStatics () {
@@ -27,7 +29,7 @@ class RelayServer {
 
         let session = new RelaySession(conf);
 
-        session.on('end', (id) => {
+        session.on('end', id => {
             this.streams.delete(conf.id);
         });
         this.streams.set(conf.id,  session);
